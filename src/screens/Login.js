@@ -1,7 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import Navbar from "../components/Navbar";
 
 export default function Login() {
+
+    const [user, setUser] = useState({name:"",email:"",password:"",location:""})
+    const onchange = (e) =>{
+        setUser({...user,[e.target.name]:e.target.value});
+    }
+
   return (
     <>
     <Navbar />
@@ -9,7 +15,7 @@ export default function Login() {
       <form>
       <h2 className="text-center mt-5">Login Page</h2>
         <div className="mb-3">
-          <label for="email" className="form-label">
+          <label htmlFor="email" className="form-label">
             Email address
           </label>
           <input
@@ -17,11 +23,12 @@ export default function Login() {
             className="form-control"
             id="email"
             name="email"
+            onChange={onchange}
             aria-describedby="emailHelp"
           />
         </div>
         <div className="mb-3">
-          <label for="password" className="form-label">
+          <label htmlFor="password" className="form-label">
             Password
           </label>
           <input
@@ -29,6 +36,7 @@ export default function Login() {
             className="form-control"
             id="password"
             name="password"
+            onChange={onchange}
           />
         </div>
         <button type="submit" className="btn btn-primary">
