@@ -1,18 +1,36 @@
 import React,{useState} from "react";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks";
 
 export default function Login() {
 
-    const [user, setUser] = useState({name:"",email:"",password:"",location:""})
-    const onchange = (e) =>{
-        setUser({...user,[e.target.name]:e.target.value});
+  const history = useNavigate();
+    const auth = useAuth();
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const handleSubmit =async(e) =>{
+        e.preventDefault();
+        let response =await auth.login(email,password);
+        if(response.success){
+          localStorage.setItem("authToken",response.authToken)
+          history('/');
+          setEmail("");
+          setPassword("");
+        }
+        else{
+          history('/signup');
+        }
     }
+
 
   return (
     <>
     <Navbar />
     <div className="container">
-      <form>
+      <form onSubmit={handleSubmit}>
       <h2 className="text-center mt-5">Login Page</h2>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
@@ -23,7 +41,7 @@ export default function Login() {
             className="form-control"
             id="email"
             name="email"
-            onChange={onchange}
+            onChange={(e)=> setEmail(e.target.value)}
             aria-describedby="emailHelp"
           />
         </div>
@@ -36,7 +54,7 @@ export default function Login() {
             className="form-control"
             id="password"
             name="password"
-            onChange={onchange}
+            onChange={(e)=> setPassword(e.target.value)}
           />
         </div>
         <button type="submit" className="btn btn-primary">

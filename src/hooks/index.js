@@ -12,7 +12,20 @@ export const useProvideAuth = () =>{
     const [userData,setUserData] = useState(null);
 
     const login = async(email,password) =>{
+        const response =await fetch(`${url}/login`,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                email:email,
+                password:password
+            })
+        })
 
+        let data = await response.json();
+        setUserData(data);
+        return data;
     }
 
     const signup = async(name,email,location,password) =>{

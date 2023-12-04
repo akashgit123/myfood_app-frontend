@@ -13,18 +13,19 @@ export default function Signup() {
     const [location, setLocation] = useState("")
     const [cpassword, setCpassword] = useState("")
 
-    const handleSubmit =async( e) =>{
+    const handleSubmit =async(e) =>{
         e.preventDefault();
-        let response = await auth.signup(name,email,location,cpassword);
-        if(!response.name){
+        let response =await auth.signup(name,email,location,cpassword);
+        if(response.success){
+            localStorage.setItem("authToken",response.authToken)
             history('/');
-        }
-        else{
-            history('/signup');
             setName("");
             setEmail("");
             setCpassword("");
             setLocation("");
+        }
+        else{
+            history('/signup');
         }
     }
 

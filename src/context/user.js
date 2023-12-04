@@ -2,7 +2,7 @@ import { createContext } from "react";
 import { useProvideAuth } from "../hooks";
 
 let initialState = {
-    user : null ,
+    userData : null ,
     login : () =>{},
     signup : ()=>{}
 }
