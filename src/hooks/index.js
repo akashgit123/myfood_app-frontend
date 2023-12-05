@@ -7,12 +7,14 @@ export const useAuth =() =>{
 
 export const useProvideAuth = () =>{
     
-    const url = "http://localhost:7000/api/user";
+    const userUrl = "http://localhost:7000/api/user";
+    const foodUrl = "http://localhost:7000/api/foodData";
+    const categoryUrl = "http://localhost:7000/api/foodCategory";
     
     const [userData,setUserData] = useState(null);
 
     const login = async(email,password) =>{
-        const response =await fetch(`${url}/login`,{
+        const response =await fetch(`${userUrl}/login`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
@@ -29,7 +31,7 @@ export const useProvideAuth = () =>{
     }
 
     const signup = async(name,email,location,password) =>{
-        const response =await fetch(`${url}/createUser`,{
+        const response =await fetch(`${userUrl}/createUser`,{
             method:"POST",
             headers:{
                 'Content-Type':'application/json'
@@ -47,6 +49,30 @@ export const useProvideAuth = () =>{
         return data;
     }
 
-    return {userData,login,signup};
+    const allFoodData = async() =>{
+        const response =await fetch(`${foodUrl}/fetchAllFood`,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+        })
+
+        let data = await response.json();
+        return data;
+    }
+
+    const allFoodCategory =async() =>{
+        const response =await fetch(`${categoryUrl}/fetchFoodCategory`,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+        })
+
+        let data = await response.json();
+        return data;
+    }
+
+    return {userData,login,signup,allFoodData,allFoodCategory};
 }
 
