@@ -8,6 +8,7 @@ import Carousel from "../components/Carousel";
 export default function Home() {
   const auth = useAuth();
 
+  const [search,setSearch] = useState(" ");
   const [foodData,setFoodData] = useState([]);
   const [foodCategory,setFoodCategory] = useState([]);
 
@@ -43,6 +44,11 @@ export default function Home() {
       <div>
         <Carousel />
       </div>
+      <div className="container">
+      <form className="mx-10 my-1">
+        <input className="form-control me-2 mt-2" type="search" placeholder="Search" aria-label="Search" name="search" value={search} onChange={(e)=>{setSearch(e.target.value)}} />
+      </form>
+      </div>
       <div>
         {
           foodCategory.length !== 0 ?
@@ -57,7 +63,7 @@ export default function Home() {
                   {
                     foodData.length !==0 ?
                     foodData.filter((value)=>
-                      value.CategoryName === cat.CategoryName
+                      value.CategoryName === cat.CategoryName && (value.name.toLowerCase().includes(search.toLocaleLowerCase()))
                     )
                     .map((data)=>{
                       return(

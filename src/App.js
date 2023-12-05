@@ -7,7 +7,7 @@ import Signup from "./screens/Signup";
 function App() {
   return (
     <Router >
-      <div className="contaoiner">
+      <div className="">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
