@@ -6,6 +6,7 @@ export default function Carousel() {
       id="carouselExampleControls"
       className="carousel slide"
       data-bs-ride="carousel"
+      style={{height:"400px", overflow:"hidden",objectFit:"contain"}}
     >
       <div className="carousel-inner" id="carousel">
         <div className="carousel-item active">

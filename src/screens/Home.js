@@ -14,19 +14,15 @@ export default function Home() {
 
   const loadFood = async() =>{
     let response = await auth.allFoodData();
-    // console.log("response",response.data);
     if(response.success){
       setFoodData(response.data)
-      // console.log("food",foodData);
     }
   }
 
   const loadCategory = async() =>{
     let response = await auth.allFoodCategory();
-    // console.log("response cat",response.data);
     if(response.success){
       setFoodCategory(response.data)
-      // console.log("cat",foodCategory);
     }
   }
 
