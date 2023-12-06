@@ -1,11 +1,21 @@
-import React from "react";
-import { Link , useNavigate } from "react-router-dom";
+import React,{useState} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useCart } from "../context/ContextReducer";
+import Modal from "../Modal";
+import Cart from "../screens/Cart";
 
 export default function Navbar() {
+
   let history = useNavigate();
-  const handleLogout = ()=>{
-    localStorage.removeItem('authToken');
-    history('/');
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    history("/");
+  };
+
+  const data = useCart();
+  const [cartView, setCartView] = useState(false);
+  const loadCart = () => {
+    setCartView(true)
   }
 
   return (
@@ -53,16 +63,34 @@ export default function Navbar() {
                       </Link>
                     </li>
                     <li className="nav-item">
-                      <Link
-                        className="nav-link active mx-2"
+                      <button
+                        type="button"
+                        className="btn btn-primary active me-4 position-relative"
                         aria-current="page"
-                        to="/myCart"
+                        onClick={loadCart}
                       >
                         My Cart
-                      </Link>
+                        {
+                          data.length ===0 ?
+                           " "
+                          :
+                          <>
+                            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              {data.length}
+                            </span>
+                          </>
+                        }
+                      </button>
                     </li>
+                    {cartView ? <Modal onClose={() => setCartView(false)}><Cart></Cart></Modal> : ""}
                     <li className="nav-item">
-                      <button type="button" className="btn btn-dark" onClick={handleLogout}>Logout</button>
+                      <button
+                        type="button"
+                        className="btn btn-dark"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </button>
                     </li>
                   </>
                 ) : (

@@ -7,6 +7,10 @@ const reducer = (state,action)=>{
     switch(action.type){
         case "ADD":
             return [...state,{id:action.id,name:action.name,description:action.description,price:action.price,imgUrl:action.img,quantity:action.quantity,size:action.size}]
+        case "REMOVE":
+            let newArr = [...state]
+            newArr.splice(action.index, 1)
+            return newArr;
         default :
             console.log("Error in dispatch case name check ")
     }
