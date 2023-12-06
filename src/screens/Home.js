@@ -64,7 +64,7 @@ export default function Home() {
                     .map((data)=>{
                       return(
                         <div key={data._id} className="col-12 col-md-6 col-lg-3">
-                             <Card   name={data.name} description={data.description} imgUrl={data.img} options={data.options[0]} />
+                             <Card   foodItem={data} options={data.options[0]} />
                         </div>
                       )
                     })
