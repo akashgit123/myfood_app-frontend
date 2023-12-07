@@ -5,7 +5,6 @@ export default function Card(props) {
   const dispatch = useDispatchCart();
   const data = useCart();
   const priceRef = useRef();
-  // const qtyRef = useRef();
 
   let options = props.options;
   let priceOptions = Object.keys(options);
@@ -16,12 +15,32 @@ export default function Card(props) {
 
   useEffect(()=>{
     setSize(priceRef.current.value);
-    // setQty(qtyRef.current.value);
   },[])
 
   const handleAddtoCart = async()=>{ 
-    await dispatch({type:'ADD',id:props.foodItem._id,name:props.foodItem.name,description:props.foodItem.description,price:totalPrice,imgUrl:props.foodItem.img,quantity:qty,size:size})
-    console.log(data);
+    let food =[];
+    for(const item of data){
+      if(item.id === props.foodItem._id){
+        food=item;
+        break;
+      }
+    }
+    if(food.length !== 0){
+      if(food.size === size){
+        await dispatch({type:"UPDATE",id:props.foodItem._id,price:totalPrice,quantity:qty});
+        console.log("cart data qty change: ");
+        return
+      }
+      else if(food.size !== size){
+        await dispatch({type:'ADD',id:props.foodItem._id,name:props.foodItem.name,description:props.foodItem.description,price:totalPrice,imgUrl:props.foodItem.img,quantity:qty,size:size})
+        console.log("cart data same item size change: ", data);
+        return
+      }
+      return
+    }
+      await dispatch({type:'ADD',id:props.foodItem._id,name:props.foodItem.name,description:props.foodItem.description,price:totalPrice,imgUrl:props.foodItem.img,quantity:qty,size:size})
+      console.log("cart data: new item ", data);
+    
   }
   
   return (

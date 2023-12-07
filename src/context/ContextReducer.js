@@ -11,6 +11,16 @@ const reducer = (state,action)=>{
             let newArr = [...state]
             newArr.splice(action.index, 1)
             return newArr;
+        case "UPDATE":
+            let arr = [...state];
+            arr.find((food,index)=>{
+                if(food.id === action.id){
+                    console.log();
+                    arr[index] = {...food,quantity:action.quantity,price:action.price}
+                }
+                return arr
+            })
+            return arr;
         default :
             console.log("Error in dispatch case name check ")
     }

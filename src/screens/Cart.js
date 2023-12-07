@@ -24,9 +24,9 @@ export default function Cart() {
   return (
     <div>
 
-      {console.log(data)}
+      {/* {console.log(data)} */}
       <div className='container t m-auto mt-5 table-responsive  table-responsive-sm table-responsive-md' >
-        <table className='table table-hover '>
+        <table className='table table-dark table-hover'>
           <thead className=' text-success fs-4'>
             <tr>
               <th scope='col' >#</th>
@@ -39,13 +39,13 @@ export default function Cart() {
           </thead>
           <tbody style={{color:"white"}}>
             {data.map((food, index) => (
-              <tr>
+              <tr key={index} className='my-2'>
                 <th scope='row' >{index + 1}</th>
                 <td >{food.name}</td>
                 <td>{food.quantity}</td>
                 <td>{food.size}</td>
                 <td>{food.price}</td>
-                <td ><button type="button" className="btn p-0"><i className="fa-solid fa-trash" onClick={() => { dispatch({ type: "REMOVE", index: index }) }} /></button> </td></tr>
+                <td ><i className=""  onClick={() => { dispatch({ type: "REMOVE", index: index }) }}>Trash</i> </td></tr>
             ))}
           </tbody>
         </table>
