@@ -8,7 +8,7 @@ let initialState = {
     signup : ()=>{},
     allFoodData : ()=>{},
     allFoodCategory : ()=>{},
-    addToCart : ()=>{}
+    addUserOrder : ()=>{}
 }
 
 export const UserContext =createContext(initialState);

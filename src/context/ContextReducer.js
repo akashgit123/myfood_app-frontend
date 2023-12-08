@@ -21,6 +21,9 @@ const reducer = (state,action)=>{
                 return arr
             })
             return arr;
+        case "DROP" :
+            let emptyArr = [];
+            return emptyArr;
         default :
             console.log("Error in dispatch case name check ")
     }

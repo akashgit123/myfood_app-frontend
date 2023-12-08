@@ -1,7 +1,9 @@
 import React from 'react'
 import { useCart, useDispatchCart } from '../context/ContextReducer';
+import { useAuth } from '../hooks';
 
 export default function Cart() {
+  const auth = useAuth();
   let data = useCart();
   let dispatch = useDispatchCart();
   if (data.length === 0) {
@@ -17,7 +19,12 @@ export default function Cart() {
   // }
 
   const handleCheckOut = async () => {
- 
+    let userEmail = localStorage.getItem("email")  ;
+    const response =await auth.addUserOrder(data,userEmail);
+    if(response.success){
+      dispatch({type:"DROP"})
+    }
+
   }
 
   let totalPrice = data.reduce((total, food) => total + food.price, 0)
@@ -45,7 +52,7 @@ export default function Cart() {
                 <td>{food.quantity}</td>
                 <td>{food.size}</td>
                 <td>{food.price}</td>
-                <td ><i className=""  onClick={() => { dispatch({ type: "REMOVE", index: index }) }}>Trash</i> </td></tr>
+                <td ><i className="bi bi-trash" onClick={() => { dispatch({ type: "REMOVE", index: index }) }}>Delete</i> </td></tr>
             ))}
           </tbody>
         </table>

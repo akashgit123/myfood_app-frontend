@@ -10,7 +10,8 @@ export const useProvideAuth = () =>{
     const userUrl = "http://localhost:7000/api/user";
     const foodUrl = "http://localhost:7000/api/foodData";
     const categoryUrl = "http://localhost:7000/api/foodCategory";
-    
+    const orderUrl = "http://localhost:7000/api/myOrders";
+
     const [userData,setUserData] = useState(null);
 
     const login = async(email,password) =>{
@@ -73,6 +74,24 @@ export const useProvideAuth = () =>{
         return data;
     }
 
-    return {userData,login,signup,allFoodData,allFoodCategory};
+    const addUserOrder = async(orderData,email) =>{
+        console.log(orderData);
+        const response = await fetch(`${orderUrl}/addOrders`,{
+            method:"POST",
+            headers:{
+                'Content-Type':'application/json'
+            },
+            body : JSON.stringify({
+                userEmail:email,
+                orderDetails:orderData,
+                orderDate: new Date().toDateString()
+            })
+        });
+        let data = await response.json();
+        return data;
+
+    }
+
+    return {userData,login,signup,allFoodData,allFoodCategory,addUserOrder};
 }
 

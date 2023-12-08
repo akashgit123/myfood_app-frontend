@@ -9,6 +9,7 @@ export default function Navbar() {
   let history = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("email");
     history("/");
   };
 

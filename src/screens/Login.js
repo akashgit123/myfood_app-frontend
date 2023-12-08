@@ -16,6 +16,7 @@ export default function Login() {
         let response =await auth.login(email,password);
         if(response.success){
           localStorage.setItem("authToken",response.authToken)
+          localStorage.setItem("email",email)
           history('/');
           setEmail("");
           setPassword("");

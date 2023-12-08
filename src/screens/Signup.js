@@ -18,6 +18,7 @@ export default function Signup() {
         let response =await auth.signup(name,email,location,cpassword);
         if(response.success){
             localStorage.setItem("authToken",response.authToken)
+            localStorage.setItem("email",email)
             history('/');
             setName("");
             setEmail("");
